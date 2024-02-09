@@ -11,6 +11,7 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.getScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import common.string.LocalStrings
 import presentation.HistoryScreen
 
 class HomeScreen : Screen {
@@ -20,6 +21,8 @@ class HomeScreen : Screen {
         val navigator = LocalNavigator.currentOrThrow
         val screenModel = getScreenModel<HomeScreenModel>()
         val token by screenModel.token.collectAsState()
+        val strings = LocalStrings.current
+
         Column {
 
             TextField(
@@ -33,9 +36,8 @@ class HomeScreen : Screen {
                     navigator.push(HistoryScreen())
                 }
             ) {
-                Text("Go to History")
+                Text(strings.hello)
             }
         }
-
     }
 }

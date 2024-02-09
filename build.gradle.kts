@@ -32,6 +32,7 @@ dependencies {
     implementation(libs.voyagerKoin)
     implementation(libs.coroutine)
     implementation(libs.koin)
+    implementation(libs.lyricist)
 }
 
 compose.desktop {
