@@ -5,5 +5,6 @@ import common.AppConstants
 
 @LyricistStrings(languageTag = AppConstants.FA_LOCAL)
 val FaString = Strings(
-    hello = "سلام"
+    hello = "سلام",
+    appName = "Gitlab Pipeline Trigger"
 )

@@ -8,4 +8,5 @@ val LocalStrings = staticCompositionLocalOf {
 
 data class Strings(
     val hello: String,
+    val appName: String
 )

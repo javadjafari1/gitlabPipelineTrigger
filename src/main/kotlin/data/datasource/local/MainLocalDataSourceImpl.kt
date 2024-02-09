@@ -12,4 +12,12 @@ class MainLocalDataSourceImpl(
     override fun restoreToken(defaultValue: String): String {
         return preferenceManager.restoreToken(defaultValue)
     }
+
+    override fun saveLocale(locale: String) {
+        preferenceManager.saveLocale(locale)
+    }
+
+    override fun restoreLocale(default: String): String {
+        return preferenceManager.restoreLocale(default)
+    }
 }

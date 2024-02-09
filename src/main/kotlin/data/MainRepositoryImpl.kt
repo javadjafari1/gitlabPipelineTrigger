@@ -24,4 +24,12 @@ class MainRepositoryImpl(
     override fun restoreToken(defaultValue: String): String {
         return mainLocalDataSource.restoreToken(defaultValue = defaultValue)
     }
+
+    override fun saveLocale(locale: String) {
+        mainLocalDataSource.saveLocale(locale)
+    }
+
+    override fun restoreLocale(default: String): String {
+        return mainLocalDataSource.restoreLocale(default)
+    }
 }

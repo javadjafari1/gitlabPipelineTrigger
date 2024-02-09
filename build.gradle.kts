@@ -37,7 +37,7 @@ dependencies {
 
 compose.desktop {
     application {
-        mainClass = "presentation.MainKt"
+        mainClass = "presentation.main.MainKt"
 
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)

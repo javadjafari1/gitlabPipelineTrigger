@@ -9,6 +9,7 @@ import data.preference.PreferenceManager
 import data.preference.PreferenceManagerImpl
 import domain.repo.MainRepository
 import org.koin.dsl.module
+import presentation.main.MainScreenModel
 import presentation.home.HomeScreenModel
 import java.util.prefs.Preferences
 
@@ -24,6 +25,7 @@ val homeModule = module {
         )
     }
     factory { HomeScreenModel(get()) }
+    factory { MainScreenModel(get()) }
 }
 
 fun appModules() = listOf(homeModule)

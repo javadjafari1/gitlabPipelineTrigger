@@ -13,7 +13,16 @@ class PreferenceManagerImpl(
         return preferences.get(TOKEN_KEY, defaultValue)
     }
 
+    override fun saveLocale(locale: String) {
+        preferences.put(LOCALE_KEY, locale)
+    }
+
+    override fun restoreLocale(default: String): String {
+        return preferences.get(LOCALE_KEY, default)
+    }
+
     companion object {
         const val TOKEN_KEY = "token"
+        const val LOCALE_KEY = "locale"
     }
 }
