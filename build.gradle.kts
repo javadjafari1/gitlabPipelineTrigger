@@ -1,6 +1,4 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
-import java.util.Properties
-import java.io.FileInputStream
 
 plugins {
     kotlin("jvm")
@@ -16,6 +14,7 @@ dependencies {
     implementation("cafe.adriel.voyager:voyager-navigator:$voyagerVersion")
     implementation("cafe.adriel.voyager:voyager-screenmodel:$voyagerVersion")
     implementation("cafe.adriel.voyager:voyager-koin:$voyagerVersion")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-swing:1.7.3")
 
     implementation("io.insert-koin:koin-core:$koinVersion")
 

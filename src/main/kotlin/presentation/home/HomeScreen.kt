@@ -3,6 +3,7 @@ package presentation.home
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.Button
 import androidx.compose.material.Text
+import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -18,12 +19,17 @@ class HomeScreen : Screen {
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
         val screenModel = getScreenModel<HomeScreenModel>()
-        val state by screenModel.flow.collectAsState()
+        val token by screenModel.token.collectAsState()
         Column {
-            Text("Hello from A, count $state")
+
+            TextField(
+                value = token,
+                onValueChange = {
+                    screenModel.updateToken(it)
+                }
+            )
             Button(
                 onClick = {
-                    screenModel.flow.value += 1
                     navigator.push(HistoryScreen())
                 }
             ) {

@@ -16,11 +16,11 @@ class MainRepositoryImpl(
         TODO("Not yet implemented")
     }
 
-    override suspend fun saveToken(token: String) {
-        TODO("Not yet implemented")
+    override fun saveToken(token: String) {
+        mainLocalDataSource.saveToken(token)
     }
 
-    override suspend fun restoreToken(): String {
-        TODO("Not yet implemented")
+    override fun restoreToken(defaultValue: String): String {
+        return mainLocalDataSource.restoreToken(defaultValue = defaultValue)
     }
 }

@@ -1,6 +1,6 @@
-package data.datasource.local
+package data.preference
 
-interface MainLocalDataSource {
+interface PreferenceManager {
     fun saveToken(token: String)
     fun restoreToken(defaultValue: String): String
 }
