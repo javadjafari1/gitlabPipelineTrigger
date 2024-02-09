@@ -1,4 +1,3 @@
 package data.datasource.remote
 
-interface MainRemoteDataSource {
-}
+interface MainRemoteDataSource

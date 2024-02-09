@@ -1,17 +1,19 @@
 [versions]
-voyager = "1.0.0"
-koin = "3.5.3"
-coroutine = "1.7.3"
-kotlin = "1.9.20"
 compose = "1.5.10"
+coroutine = "1.7.3"
+detekt = "1.23.3"
+koin = "3.5.3"
+kotlin = "1.9.20"
+voyager = "1.0.0"
 
 [libraries]
-voyagerNavigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyager" }
-voyagerScreenModel = { module = "cafe.adriel.voyager:voyager-screenmodel", version.ref = "voyager" }
-voyagerKoin = { module = "cafe.adriel.voyager:voyager-koin", version.ref = "voyager" }
 coroutine = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "coroutine" }
 koin = { module = "io.insert-koin:koin-core", version.ref = "koin" }
+voyagerKoin = { module = "cafe.adriel.voyager:voyager-koin", version.ref = "voyager" }
+voyagerNavigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyager" }
+voyagerScreenModel = { module = "cafe.adriel.voyager:voyager-screenmodel", version.ref = "voyager" }
 
 [plugins]
 compose = { id = "org.jetbrains.compose", version.ref = "compose" }
+detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 kotlin = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }

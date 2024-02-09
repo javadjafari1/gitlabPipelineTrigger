@@ -9,6 +9,7 @@ class MainRepositoryImpl(
     private val mainLocalDataSource: MainLocalDataSource,
 ) : MainRepository {
     override suspend fun getProjectList() {
+        mainRemoteDataSource
         TODO("Not yet implemented")
     }
 

@@ -1,4 +1,3 @@
 package data.datasource.remote
 
-class MainRemoteDataSourceImpl : MainRemoteDataSource {
-}
+class MainRemoteDataSourceImpl : MainRemoteDataSource
