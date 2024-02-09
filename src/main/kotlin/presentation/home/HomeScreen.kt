@@ -12,32 +12,21 @@ import cafe.adriel.voyager.koin.getScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import common.string.LocalStrings
-import presentation.HistoryScreen
 
 class HomeScreen : Screen {
 
     @Composable
     override fun Content() {
-        val navigator = LocalNavigator.currentOrThrow
         val screenModel = getScreenModel<HomeScreenModel>()
         val token by screenModel.token.collectAsState()
-        val strings = LocalStrings.current
 
         Column {
-
             TextField(
                 value = token,
                 onValueChange = {
                     screenModel.updateToken(it)
                 }
             )
-            Button(
-                onClick = {
-                    navigator.push(HistoryScreen())
-                }
-            ) {
-                Text(strings.hello)
-            }
         }
     }
 }
