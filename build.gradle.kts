@@ -27,9 +27,7 @@ tasks.withType<Detekt>().configureEach {
 }
 dependencies {
     implementation(compose.desktop.currentOs)
-    implementation(libs.voyagerNavigator)
-    implementation(libs.voyagerScreenModel)
-    implementation(libs.voyagerKoin)
+    implementation(libs.bundles.voyager)
     implementation(libs.coroutine)
     implementation(libs.koin)
     implementation(libs.lyricist)

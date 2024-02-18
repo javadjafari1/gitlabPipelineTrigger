@@ -19,3 +19,6 @@ voyagerScreenModel = { module = "cafe.adriel.voyager:voyager-screenmodel", versi
 compose = { id = "org.jetbrains.compose", version.ref = "compose" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 kotlin = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+
+[bundles]
+voyager = ["voyagerKoin", "voyagerNavigator", "voyagerScreenModel"]
