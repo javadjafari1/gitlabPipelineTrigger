@@ -1,16 +1,24 @@
 package data
 
+import common.Role
 import data.datasource.local.MainLocalDataSource
 import data.datasource.remote.MainRemoteDataSource
+import domain.model.ProjectResponse
 import domain.repo.MainRepository
 
 class MainRepositoryImpl(
     private val mainRemoteDataSource: MainRemoteDataSource,
     private val mainLocalDataSource: MainLocalDataSource,
 ) : MainRepository {
-    override suspend fun getProjectList() {
-        mainRemoteDataSource
-        TODO("Not yet implemented")
+    override suspend fun getProjects(): List<ProjectResponse> {
+        return mainRemoteDataSource.getProjects(
+            isSimple = true,
+            includeArchived = false,
+            orderBy = "id",
+            sortAscending = true,
+            minAccessLevel = Role.Guest,
+            perPage = 100
+        )
     }
 
     override suspend fun getBranchList() {

@@ -16,6 +16,14 @@ class HomeScreenModel(
 
     init {
         restoreToken()
+        kotlin.runCatching {
+            screenModelScope.launch {
+                val projects = mainRepository.getProjects()
+                println(projects)
+            }
+        }.getOrElse {
+            println(it)
+        }
     }
 
     fun updateToken(token: String) {

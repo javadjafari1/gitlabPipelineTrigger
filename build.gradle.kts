@@ -3,6 +3,7 @@ import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
 plugins {
     alias(libs.plugins.kotlin)
+    alias(libs.plugins.kotlinSerialization)
     alias(libs.plugins.compose)
     alias(libs.plugins.detekt)
 }
@@ -28,9 +29,11 @@ tasks.withType<Detekt>().configureEach {
 dependencies {
     implementation(compose.desktop.currentOs)
     implementation(libs.bundles.voyager)
+    implementation(libs.bundles.ktor)
     implementation(libs.coroutine)
     implementation(libs.koin)
     implementation(libs.lyricist)
+    implementation(libs.bundles.slf4j)
 }
 
 compose.desktop {
