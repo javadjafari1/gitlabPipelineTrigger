@@ -1,6 +1,7 @@
 package data.datasource.remote
 
 import common.Role
+import domain.model.BranchResponse
 import domain.model.ProjectResponse
 
 interface MainRemoteDataSource {
@@ -12,5 +13,10 @@ interface MainRemoteDataSource {
         minAccessLevel: Role,
         perPage: Int,
     ): List<ProjectResponse>
+
+    suspend fun getBranches(
+        projectId: Int,
+        perPage: Int
+    ): List<BranchResponse>
 }
 

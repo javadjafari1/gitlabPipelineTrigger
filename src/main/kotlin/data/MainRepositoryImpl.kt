@@ -3,6 +3,7 @@ package data
 import common.Role
 import data.datasource.local.MainLocalDataSource
 import data.datasource.remote.MainRemoteDataSource
+import domain.model.BranchResponse
 import domain.model.ProjectResponse
 import domain.repo.MainRepository
 
@@ -21,8 +22,11 @@ class MainRepositoryImpl(
         )
     }
 
-    override suspend fun getBranchList() {
-        TODO("Not yet implemented")
+    override suspend fun getBranches(projectId: Int): List<BranchResponse> {
+        return mainRemoteDataSource.getBranches(
+            projectId = projectId,
+            perPage = 100
+        )
     }
 
     override fun saveToken(token: String) {
