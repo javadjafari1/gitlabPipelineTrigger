@@ -5,6 +5,8 @@ import data.datasource.local.MainLocalDataSource
 import data.datasource.remote.MainRemoteDataSource
 import domain.model.BranchResponse
 import domain.model.ProjectResponse
+import domain.model.TriggerResponse
+import domain.model.TriggerTokenResponse
 import domain.repo.MainRepository
 
 class MainRepositoryImpl(
@@ -27,6 +29,22 @@ class MainRepositoryImpl(
             projectId = projectId,
             perPage = 100
         )
+    }
+
+    override suspend fun trigger(
+        projectId: Int,
+        branchName: String,
+        variables: Map<String, String>
+    ): TriggerResponse {
+        return mainRemoteDataSource.trigger(
+            projectId = projectId,
+            branchName = branchName,
+            variables = variables
+        )
+    }
+
+    override suspend fun getProjectTriggerTokens(projectId: Int): List<TriggerTokenResponse> {
+        return mainRemoteDataSource.getProjectTriggerTokens(projectId)
     }
 
     override fun saveToken(token: String) {

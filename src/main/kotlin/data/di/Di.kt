@@ -3,6 +3,7 @@ package data.di
 import data.datasource.remote.MainRemoteDataSource
 import data.datasource.remote.MainRemoteDataSourceImpl
 import data.MainRepositoryImpl
+import data.api.GitlabApi
 import data.datasource.local.MainLocalDataSource
 import data.datasource.local.MainLocalDataSourceImpl
 import data.preference.PreferenceManager
@@ -51,9 +52,11 @@ val networkModule = module {
             prettyPrint = true
             isLenient = true
             ignoreUnknownKeys = true
+            explicitNulls = true
             namingStrategy = JsonNamingStrategy.SnakeCase
         }
     }
+    single { GitlabApi(get()) }
 }
 
 fun appModules() = listOf(homeModule, networkModule)

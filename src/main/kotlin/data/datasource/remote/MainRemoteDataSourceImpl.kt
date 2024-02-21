@@ -1,17 +1,14 @@
 package data.datasource.remote
 
-import common.AppConstants.URL
-import common.AppConstants.TOKEN
 import common.Role
-import common.getOrThrow
+import data.api.GitlabApi
 import domain.model.BranchResponse
 import domain.model.ProjectResponse
-import io.ktor.client.HttpClient
-import io.ktor.client.request.get
-import io.ktor.client.request.parameter
+import domain.model.TriggerResponse
+import domain.model.TriggerTokenResponse
 
 class MainRemoteDataSourceImpl(
-    private val httpClient: HttpClient,
+    private val gitlabApi: GitlabApi
 ) : MainRemoteDataSource {
     override suspend fun getProjects(
         isSimple: Boolean,
@@ -21,30 +18,43 @@ class MainRemoteDataSourceImpl(
         minAccessLevel: Role,
         perPage: Int,
     ): List<ProjectResponse> {
-        val response = httpClient.get(URL) {
-            headers.append("Authorization", "Bearer $TOKEN")
-            parameter("simple", isSimple)
-            parameter("archived", includeArchived)
-            parameter("order_by", orderBy)
-            parameter("sort", if (sortAscending) "asc" else "desc")
-            parameter("min_access_level", minAccessLevel.id)
-            parameter("per_page", perPage)
-        }
-
-        return response.getOrThrow<List<ProjectResponse>>()
+        return gitlabApi.getProjects(
+            isSimple = isSimple,
+            includeArchived = includeArchived,
+            orderBy = orderBy,
+            sortAscending = sortAscending,
+            minAccessLevel = minAccessLevel,
+            perPage = perPage,
+        )
     }
 
     override suspend fun getBranches(
         projectId: Int,
         perPage: Int,
     ): List<BranchResponse> {
-        val response = httpClient.get(
-            "$URL/$projectId/repository/branches"
-        ) {
-            headers.append("Authorization", "Bearer $TOKEN")
-            parameter("per_page", perPage)
-        }
-        return response.getOrThrow<List<BranchResponse>>()
+        return gitlabApi.getBranches(
+            projectId = projectId,
+            perPage = perPage,
+        )
+    }
+
+    override suspend fun trigger(
+        projectId: Int,
+        branchName: String,
+        variables: Map<String, String>
+    ): TriggerResponse {
+        return gitlabApi.trigger(
+            projectId = projectId,
+            branchName = branchName,
+            variables = variables
+        )
+    }
+
+    override suspend fun getProjectTriggerTokens(
+        projectId: Int
+    ): List<TriggerTokenResponse> {
+        return gitlabApi.getProjectTriggerTokens(
+            projectId = projectId
+        )
     }
 }
-
