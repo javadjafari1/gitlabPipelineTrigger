@@ -17,7 +17,8 @@ import common.string.LocalStrings
 import data.di.appModules
 import org.koin.core.context.GlobalContext.get
 import org.koin.core.context.GlobalContext.startKoin
-import presentation.home.HomeScreen
+import presentation.signup.SignUpScreen
+import presentation.theme.AppTheme
 
 fun main() = application {
     startKoin {
@@ -33,14 +34,16 @@ fun main() = application {
             Pair(AppConstants.FA_LOCAL, FaString)
         )
     )
-    CompositionLocalProvider(LocalLayoutDirection provides locale.toLayoutDirection()) {
-        ProvideStrings(lyricist, LocalStrings) {
-            val strings = LocalStrings.current
-            Window(
-                onCloseRequest = ::exitApplication,
-                title = strings.appName
-            ) {
-                Navigator(HomeScreen())
+    AppTheme {
+        CompositionLocalProvider(LocalLayoutDirection provides locale.toLayoutDirection()) {
+            ProvideStrings(lyricist, LocalStrings) {
+                val strings = LocalStrings.current
+                Window(
+                    onCloseRequest = ::exitApplication,
+                    title = strings.appName
+                ) {
+                    Navigator(SignUpScreen())
+                }
             }
         }
     }

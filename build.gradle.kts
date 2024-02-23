@@ -34,6 +34,7 @@ dependencies {
     implementation(libs.koin)
     implementation(libs.lyricist)
     implementation(libs.bundles.slf4j)
+    implementation(libs.material3)
 }
 
 compose.desktop {
