@@ -1,12 +1,12 @@
 [versions]
-compose = "1.5.10"
+compose = "1.6.0-rc02"
 coroutine = "1.7.3"
 detekt = "1.23.3"
 koin = "3.5.3"
 kotlin = "1.9.20"
 ktor = "2.3.8"
 lyricist = "1.6.2"
-material3 = "1.2.0"
+material3 = "1.6.0-rc02"
 slf4j = "2.0.12"
 voyager = "1.0.0"
 
