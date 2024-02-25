@@ -26,4 +26,8 @@ abstract class BaseScreenModel<State, Action, Effect>(
     }
 
     protected fun getCurrentState(): State = state.value
+
+    protected suspend fun sendEffect(effect: Effect) {
+        _effect.send(effect)
+    }
 }
