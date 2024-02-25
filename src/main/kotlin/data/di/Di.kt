@@ -20,7 +20,7 @@ import kotlinx.serialization.json.JsonNamingStrategy
 import org.koin.dsl.module
 import presentation.main.MainScreenModel
 import presentation.home.HomeScreenModel
-import presentation.signup.LogInScreenModel
+import presentation.login.LogInScreenModel
 import java.util.prefs.Preferences
 
 val homeModule = module {

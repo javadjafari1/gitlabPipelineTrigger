@@ -1,12 +1,12 @@
-package presentation.signup
+package presentation.login
 
 import cafe.adriel.voyager.core.model.screenModelScope
 import kotlinx.coroutines.launch
 import presentation.common.BaseScreenModel
-import presentation.signup.LogInEffect.NavigateToSelectProject
-import presentation.signup.LogInNonUiAction.SigIn
-import presentation.signup.LogInNonUiAction.UpdateAddressTextInput
-import presentation.signup.LogInNonUiAction.UpdateTokenTextInput
+import presentation.login.LogInEffect.NavigateToSelectProject
+import presentation.login.LogInNonUiAction.SigIn
+import presentation.login.LogInNonUiAction.UpdateAddressTextInput
+import presentation.login.LogInNonUiAction.UpdateTokenTextInput
 
 class LogInScreenModel : BaseScreenModel<LogInScreenState, LogInNonUiAction, LogInEffect>(
     initialState = LogInScreenState()

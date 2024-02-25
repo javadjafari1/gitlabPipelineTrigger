@@ -1,4 +1,4 @@
-package presentation.signup
+package presentation.login
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
@@ -45,11 +45,11 @@ import presentation.common.AppFilledButton
 import presentation.common.AppTextField
 import presentation.common.ObserveEffect
 import presentation.selectproject.SelectProjectScreen
-import presentation.signup.LogInEffect.NavigateToSelectProject
-import presentation.signup.LogInNonUiAction.SigIn
-import presentation.signup.LogInUiAction.ToggleTokenVisibility
-import presentation.signup.LogInNonUiAction.UpdateAddressTextInput
-import presentation.signup.LogInNonUiAction.UpdateTokenTextInput
+import presentation.login.LogInEffect.NavigateToSelectProject
+import presentation.login.LogInNonUiAction.SigIn
+import presentation.login.LogInUiAction.ToggleTokenVisibility
+import presentation.login.LogInNonUiAction.UpdateAddressTextInput
+import presentation.login.LogInNonUiAction.UpdateTokenTextInput
 
 class LogInScreen : Screen {
     @Composable
@@ -150,12 +150,6 @@ class LogInScreen : Screen {
                         value = screenState.address,
                         onValueChange = {
                             actioner(UpdateAddressTextInput(it))
-                        },
-                        leadingIcon = {
-                            Text(
-                                "https://www.",
-                                modifier = Modifier.padding(start = 16.dp)
-                            )
                         },
                         isError = screenState.addressFieldHasError == true,
                     )

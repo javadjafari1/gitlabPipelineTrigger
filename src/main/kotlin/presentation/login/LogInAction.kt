@@ -1,4 +1,4 @@
-package presentation.signup
+package presentation.login
 
 sealed interface LogInAction
 

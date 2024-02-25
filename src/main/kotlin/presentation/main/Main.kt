@@ -25,7 +25,7 @@ import common.appResources
 import data.di.appModules
 import org.koin.core.context.GlobalContext.get
 import org.koin.core.context.GlobalContext.startKoin
-import presentation.signup.LogInScreen
+import presentation.login.LogInScreen
 import presentation.theme.AppTheme
 
 fun main() = application {
