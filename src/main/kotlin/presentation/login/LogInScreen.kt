@@ -88,7 +88,6 @@ class LogInScreen : Screen {
         isTokenVisible: Boolean,
         actioner: (LogInAction) -> Unit
     ) {
-        val strings = LocalStrings.current
         val resources = LocalResources.current
 
         Box(
@@ -101,158 +100,187 @@ class LogInScreen : Screen {
                     .align(Alignment.Center)
                     .verticalScroll(rememberScrollState())
                     .padding(all = 56.dp)
-                    .fillMaxSize()
+                    .width(IntrinsicSize.Max)
                     .background(
-                        color = MaterialTheme.colorScheme.onPrimary,
+                        color = MaterialTheme.colorScheme.surfaceContainerLowest,
                         shape = MaterialTheme.shapes.large
                     )
                     .border(
                         width = 1.dp,
-                        color = MaterialTheme.colorScheme.outline,
+                        color = MaterialTheme.colorScheme.outlineVariant,
                         shape = MaterialTheme.shapes.large
                     )
                     .padding(32.dp)
             ) {
-                Column(
-                    modifier = Modifier.weight(1f)
-                        .padding(horizontal = 24.dp)
-                        .width(IntrinsicSize.Max)
-                ) {
-                    Image(
-                        modifier = Modifier
-                            .align(Alignment.CenterHorizontally)
-                            .size(96.dp),
-                        painter = painterResource(resources.logo),
-                        contentDescription = "logo"
-                    )
-
-                    Spacer(Modifier.size(32.dp))
-
-                    Text(
-                        modifier = Modifier.align(Alignment.CenterHorizontally),
-                        text = strings.welcomeToGitFast,
-                        style = MaterialTheme.typography.headlineLarge,
-                        color = MaterialTheme.colorScheme.onSurface,
-                    )
-
-                    Spacer(modifier = Modifier.size(80.dp))
-
-                    Text(
-                        text = strings.enterYourGitlabAddress,
-                        style = MaterialTheme.typography.titleLarge,
-                        color = MaterialTheme.colorScheme.onSurface,
-                    )
-
-                    Spacer(modifier = Modifier.size(8.dp))
-
-                    AppTextField(
-                        modifier = Modifier.fillMaxWidth(),
-                        value = screenState.address,
-                        onValueChange = {
-                            actioner(UpdateAddressTextInput(it))
-                        },
-                        isError = screenState.addressFieldHasError == true,
-                    )
-                    AnimatedVisibility(
-                        modifier = Modifier.padding(4.dp),
-                        visible = screenState.addressFieldHasError == true
-                    ) {
-                        Text(
-                            text = strings.correctYourAddress,
-                            color = MaterialTheme.colorScheme.error,
-                            style = MaterialTheme.typography.labelMedium,
-                        )
-                    }
-
-                    Spacer(modifier = Modifier.size(16.dp))
-
-                    Text(
-                        text = strings.enterYourToken,
-                        style = MaterialTheme.typography.titleLarge,
-                        color = MaterialTheme.colorScheme.onSurface,
-                    )
-
-                    Spacer(modifier = Modifier.size(8.dp))
-
-                    AppTextField(
-                        modifier = Modifier.fillMaxWidth(),
-                        value = screenState.token,
-                        onValueChange = {
-                            actioner(UpdateTokenTextInput(it))
-                        },
-                        trailingIcon = {
-                            IconButton(
-                                onClick = {
-                                    actioner(ToggleTokenVisibility)
-                                }
-                            ) {
-                                AnimatedContent(isTokenVisible) { isVisible ->
-                                    Icon(
-                                        painter = painterResource(
-                                            if (isVisible) {
-                                                resources.visibilityOn
-                                            } else {
-                                                resources.visibilityOff
-                                            }
-                                        ),
-                                        contentDescription = if (isVisible) {
-                                            "visible token"
-                                        } else {
-                                            "invisible token"
-                                        }
-                                    )
-                                }
-                            }
-                        },
-                        visualTransformation = if (isTokenVisible) {
-                            VisualTransformation.None
-                        } else {
-                            PasswordVisualTransformation()
-                        },
-                        isError = screenState.tokenFieldHasError == true,
-                    )
-                    AnimatedVisibility(
-                        modifier = Modifier.padding(4.dp),
-                        visible = screenState.tokenFieldHasError == true
-                    ) {
-                        Text(
-                            text = strings.enterTokenCorrectly,
-                            color = MaterialTheme.colorScheme.error,
-                            style = MaterialTheme.typography.labelMedium,
-                        )
-                    }
-
-                    Spacer(modifier = Modifier.size(4.dp))
-
-                    TextButton(onClick = {}) {
-                        Text(
-                            text = strings.howToCreateToken,
-                            style = MaterialTheme.typography.labelLarge,
-                            color = MaterialTheme.colorScheme.secondary,
-                        )
-                    }
-
-                    Spacer(modifier = Modifier.size(48.dp))
-
-                    AppFilledButton(
-                        modifier = Modifier.fillMaxWidth(),
-                        onClick = { actioner(SigIn) }
-                    ) {
-                        Text(
-                            text = strings.signIn,
-                            style = MaterialTheme.typography.bodyLarge
-                        )
-                    }
-
-                }
+                LoginForm(
+                    modifier = Modifier.weight(1f),
+                    screenState = screenState,
+                    actioner = actioner,
+                    isTokenVisible = isTokenVisible
+                )
 
                 Image(
                     modifier = Modifier
-                        .weight(1.5f)
+                        .weight(1f)
+                        .fillMaxWidth()
                         .align(Alignment.CenterVertically),
                     painter = painterResource(resources.loginIllustration),
                     contentDescription = "login illustration",
                     contentScale = ContentScale.FillWidth
+                )
+            }
+        }
+    }
+
+    @Composable
+    private fun LoginForm(
+        screenState: LogInScreenState,
+        isTokenVisible: Boolean,
+        modifier: Modifier = Modifier,
+        actioner: (LogInAction) -> Unit
+    ) {
+        val strings = LocalStrings.current
+        val resources = LocalResources.current
+
+        Column(
+            modifier = modifier
+                .padding(horizontal = 24.dp)
+                .fillMaxWidth()
+                .width(IntrinsicSize.Max)
+        ) {
+            Image(
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .size(96.dp),
+                painter = painterResource(resources.logo),
+                contentDescription = "logo",
+            )
+
+            Spacer(Modifier.size(48.dp))
+
+            Text(
+                modifier = Modifier.align(Alignment.CenterHorizontally),
+                text = strings.welcomeToGitFast,
+                style = MaterialTheme.typography.headlineLarge,
+                color = MaterialTheme.colorScheme.onSurface,
+            )
+
+            Spacer(modifier = Modifier.size(80.dp))
+
+            Text(
+                text = strings.enterYourGitlabAddress,
+                style = MaterialTheme.typography.titleLarge,
+                color = MaterialTheme.colorScheme.onSurface,
+            )
+
+            Spacer(modifier = Modifier.size(8.dp))
+
+            AppTextField(
+                modifier = Modifier.fillMaxWidth(),
+                value = screenState.address,
+                isError = screenState.addressFieldHasError == true,
+                trailingIcon = {
+                    Icon(
+                        painter = painterResource(resources.world),
+                        contentDescription = "ic world",
+                    )
+                },
+                onValueChange = {
+                    actioner(UpdateAddressTextInput(it))
+                },
+            )
+            AnimatedVisibility(
+                modifier = Modifier.padding(4.dp),
+                visible = screenState.addressFieldHasError == true
+            ) {
+                Text(
+                    text = strings.correctYourAddress,
+                    color = MaterialTheme.colorScheme.error,
+                    style = MaterialTheme.typography.labelMedium,
+                )
+            }
+
+            Spacer(modifier = Modifier.size(16.dp))
+
+            Text(
+                text = strings.enterYourToken,
+                style = MaterialTheme.typography.titleLarge,
+                color = MaterialTheme.colorScheme.onSurface,
+            )
+
+            Spacer(modifier = Modifier.size(8.dp))
+
+            AppTextField(
+                modifier = Modifier.fillMaxWidth(),
+                value = screenState.token,
+                isError = screenState.tokenFieldHasError == true,
+                onValueChange = {
+                    actioner(UpdateTokenTextInput(it))
+                },
+                trailingIcon = {
+                    IconButton(
+                        onClick = {
+                            actioner(ToggleTokenVisibility)
+                        }
+                    ) {
+                        AnimatedContent(isTokenVisible) { isVisible ->
+                            Icon(
+                                painter = painterResource(
+                                    if (isVisible) {
+                                        resources.visibilityOn
+                                    } else {
+                                        resources.visibilityOff
+                                    }
+                                ),
+                                contentDescription = if (isVisible) {
+                                    "visible token"
+                                } else {
+                                    "invisible token"
+                                }
+                            )
+                        }
+                    }
+                },
+                visualTransformation = if (isTokenVisible) {
+                    VisualTransformation.None
+                } else {
+                    PasswordVisualTransformation()
+                },
+            )
+            AnimatedVisibility(
+                modifier = Modifier.padding(4.dp),
+                visible = screenState.tokenFieldHasError == true
+            ) {
+                Text(
+                    text = strings.enterTokenCorrectly,
+                    color = MaterialTheme.colorScheme.error,
+                    style = MaterialTheme.typography.labelMedium,
+                )
+            }
+
+            Spacer(modifier = Modifier.size(4.dp))
+
+            TextButton(
+                onClick = {
+
+                }
+            ) {
+                Text(
+                    text = strings.howToCreateToken,
+                    style = MaterialTheme.typography.labelLarge,
+                    color = MaterialTheme.colorScheme.secondary,
+                )
+            }
+
+            Spacer(modifier = Modifier.size(48.dp))
+
+            AppFilledButton(
+                modifier = Modifier.fillMaxWidth(),
+                onClick = { actioner(SigIn) }
+            ) {
+                Text(
+                    text = strings.signIn,
+                    style = MaterialTheme.typography.bodyLarge
                 )
             }
         }

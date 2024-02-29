@@ -9,11 +9,13 @@ data class Resource(
     val visibilityOn: String,
     val visibilityOff: String,
     val loginIllustration: String,
+    val world: String,
 )
 
 internal val appResources = Resource(
-    logo = "drawable/ic_logo.png",
+    logo = "drawable/ic_logo.svg",
     visibilityOn = "drawable/ic_visibility_on.xml",
     visibilityOff = "drawable/ic_visibility_off.xml",
-    loginIllustration = "drawable/login_illustration.png"
+    loginIllustration = "drawable/login_illustration.svg",
+    world = "drawable/ic_world.svg"
 )
