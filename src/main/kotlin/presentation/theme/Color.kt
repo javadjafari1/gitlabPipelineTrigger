@@ -34,7 +34,6 @@ private val error90 = Color(0xFFFFDAD6)
 
 private val neutral10 = Color(0xFF181C20)
 private val neutral80 = Color(0xFFE0E2E8)
-private val neutral90 = Color(0xFFE0E2E8)
 private val neutral99 = Color(0xFFF7F9FF)
 
 private val neutralVariant30 = Color(0xFF42474E)
@@ -61,12 +60,24 @@ internal val darkColors = darkColorScheme(
     errorContainer = error30,
     onErrorContainer = error90,
     background = neutral10,
-    onBackground = neutral90,
+    onBackground = neutral80,
     surface = neutral10,
     onSurface = neutral80,
     surfaceVariant = neutralVariant30,
     onSurfaceVariant = neutralVariant80,
     outline = neutralVariant60,
+    inversePrimary = primary40,
+    inverseSurface = neutral80,
+    inverseOnSurface = Color(0xFF2D3135),
+    outlineVariant = neutralVariant30,
+    scrim = Color.Black,
+    surfaceBright = neutral99,
+    surfaceContainer = Color(0xFF1C2024),
+    surfaceContainerHigh = Color(0xFF272A2E),
+    surfaceContainerHighest = Color(0xFF313539),
+    surfaceContainerLow = neutral10,
+    surfaceContainerLowest = Color(0xFF0B0F12),
+    surfaceDim = Color(0xFF101418),
 )
 
 internal val lightColor = lightColorScheme(
@@ -93,4 +104,16 @@ internal val lightColor = lightColorScheme(
     surfaceVariant = neutralVariant90,
     onSurfaceVariant = neutralVariant30,
     outline = neutralVariant50,
+    inversePrimary = primary80,
+    surfaceTint = neutralVariant80,
+    inverseSurface = Color(0xFF2D3135),
+    inverseOnSurface = Color(0xFFEEF1F6),
+    scrim = Color.Black,
+    outlineVariant = neutralVariant80,
+    surfaceContainer = Color(0xFFEBEEF3),
+    surfaceContainerHigh = Color(0xFFE6E8EE),
+    surfaceContainerHighest = neutral80,
+    surfaceContainerLow = Color(0xFFF1F4F9),
+    surfaceContainerLowest = Color.White,
+    surfaceDim = Color(0xFFD7DADF),
 )
