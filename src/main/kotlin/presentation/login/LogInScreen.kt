@@ -44,8 +44,8 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import common.LocalResources
 import common.string.LocalStrings
-import presentation.common.AppFilledButton
-import presentation.common.AppTextField
+import presentation.common.GitFastFilledButton
+import presentation.common.GitFastTextField
 import presentation.common.GitFastScaffold
 import presentation.common.ObserveEffect
 import presentation.common.Result
@@ -198,7 +198,7 @@ class LogInScreen : Screen {
 
             Spacer(modifier = Modifier.size(8.dp))
 
-            AppTextField(
+            GitFastTextField(
                 modifier = Modifier.fillMaxWidth(),
                 value = screenState.address,
                 isError = screenState.addressFieldHasError == true,
@@ -233,7 +233,7 @@ class LogInScreen : Screen {
 
             Spacer(modifier = Modifier.size(8.dp))
 
-            AppTextField(
+            GitFastTextField(
                 modifier = Modifier.fillMaxWidth(),
                 value = screenState.token,
                 isError = screenState.tokenFieldHasError == true,
@@ -297,7 +297,7 @@ class LogInScreen : Screen {
 
             Spacer(modifier = Modifier.size(48.dp))
 
-            AppFilledButton(
+            GitFastFilledButton(
                 modifier = Modifier.fillMaxWidth(),
                 onClick = { actioner(SigIn) }
             ) {

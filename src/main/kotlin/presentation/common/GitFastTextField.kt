@@ -15,7 +15,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.VisualTransformation
 
 @Composable
-fun AppTextField(
+fun GitFastTextField(
     value: String,
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
