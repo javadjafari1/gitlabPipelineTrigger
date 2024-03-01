@@ -1,12 +1,14 @@
 package data.api
 
 import common.AppConstants
+import common.AppConstants.API_VERSION
 import common.Role
 import common.getOrThrow
 import domain.model.BranchResponse
 import domain.model.ProjectResponse
 import domain.model.TriggerResponse
 import domain.model.TriggerTokenResponse
+import domain.model.UserResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get
 import io.ktor.client.request.parameter
@@ -72,6 +74,19 @@ class GitlabApi(
     ): List<TriggerTokenResponse> {
         val response = httpClient.get("${AppConstants.URL}/$projectId/triggers") {
             headers.append("PRIVATE-TOKEN", AppConstants.TOKEN)
+        }
+
+        return response.getOrThrow()
+    }
+
+    suspend fun getUserDetail(
+        address: String,
+        token: String
+    ): UserResponse {
+        val response = httpClient.get(
+            urlString = "$address/${API_VERSION}/user"
+        ) {
+            headers.append("PRIVATE-TOKEN", token)
         }
 
         return response.getOrThrow()

@@ -1,6 +1,7 @@
 package data.datasource.local
 
 import data.preference.PreferenceManager
+import domain.model.UserData
 
 class MainLocalDataSourceImpl(
     private val preferenceManager: PreferenceManager
@@ -19,5 +20,13 @@ class MainLocalDataSourceImpl(
 
     override fun restoreLocale(default: String): String {
         return preferenceManager.restoreLocale(default)
+    }
+
+    override fun saveUserData(userData: UserData) {
+        preferenceManager.saveUserData(userData)
+    }
+
+    override fun getUserData(): UserData {
+        return preferenceManager.getUserData()
     }
 }

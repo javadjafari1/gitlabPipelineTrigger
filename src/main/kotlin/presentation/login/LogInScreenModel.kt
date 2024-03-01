@@ -1,14 +1,20 @@
 package presentation.login
 
 import cafe.adriel.voyager.core.model.screenModelScope
+import domain.repo.MainRepository
 import kotlinx.coroutines.launch
 import presentation.common.BaseScreenModel
+import presentation.common.Result
+import presentation.common.getErrorMessage
 import presentation.login.LogInEffect.NavigateToSelectProject
+import presentation.login.LogInEffect.ShowSnackbar
 import presentation.login.LogInNonUiAction.SigIn
 import presentation.login.LogInNonUiAction.UpdateAddressTextInput
 import presentation.login.LogInNonUiAction.UpdateTokenTextInput
 
-class LogInScreenModel : BaseScreenModel<LogInScreenState, LogInNonUiAction, LogInEffect>(
+class LogInScreenModel(
+    private val repository: MainRepository
+) : BaseScreenModel<LogInScreenState, LogInNonUiAction, LogInEffect>(
     initialState = LogInScreenState()
 ) {
 
@@ -34,14 +40,14 @@ class LogInScreenModel : BaseScreenModel<LogInScreenState, LogInNonUiAction, Log
         val state = getCurrentState()
         updateState {
             copy(
-                addressFieldHasError = state.address.length < 5,
-                tokenFieldHasError = state.token.length < 5,
+                addressFieldHasError = state.address.length < MINIMUM_ADDRESS_LENGTH,
+                tokenFieldHasError = state.token.length < MINIMUM_TOKEN_LENGTH,
             )
         }
 
         if (
-            state.address.length > 5 &&
-            state.token.length > 5
+            state.address.length > MINIMUM_ADDRESS_LENGTH &&
+            state.token.length > MINIMUM_TOKEN_LENGTH
         ) {
             login()
         }
@@ -49,7 +55,30 @@ class LogInScreenModel : BaseScreenModel<LogInScreenState, LogInNonUiAction, Log
 
     private fun login() {
         screenModelScope.launch {
-            sendEffect(NavigateToSelectProject)
+            runCatching {
+                updateState { copy(loginResult = Result.Loading()) }
+                val state = getCurrentState()
+                repository.getUserDetail(
+                    address = state.address,
+                    token = state.token
+                )
+            }.onSuccess {
+                updateState { copy(loginResult = Result.Success(Unit)) }
+                sendEffect(NavigateToSelectProject)
+            }.onFailure {
+                updateState { copy(loginResult = Result.Fail(it)) }
+                sendEffect(
+                    ShowSnackbar(
+                        message = it.getErrorMessage()
+                    )
+                )
+            }
+
         }
+    }
+
+    companion object {
+        private const val MINIMUM_ADDRESS_LENGTH = 5
+        private const val MINIMUM_TOKEN_LENGTH = 5
     }
 }

@@ -36,7 +36,7 @@ val homeModule = module {
     }
     factory { HomeScreenModel(get()) }
     factory { MainScreenModel(get()) }
-    factory { LogInScreenModel() }
+    factory { LogInScreenModel(get()) }
 }
 
 @OptIn(ExperimentalSerializationApi::class)

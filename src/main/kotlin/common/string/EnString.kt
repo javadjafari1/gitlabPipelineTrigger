@@ -3,6 +3,7 @@ package common.string
 import cafe.adriel.lyricist.LyricistStrings
 import common.AppConstants
 
+@Suppress("MaxLineLength")
 @LyricistStrings(languageTag = AppConstants.EN_LOCAL)
 val EnString = Strings(
     hello = "Hi",
@@ -14,4 +15,8 @@ val EnString = Strings(
     enterTokenCorrectly = "Enter token Correctly",
     howToCreateToken = "How To Create Token?",
     signIn = "Sign in",
+    serializationErrorMessage = "Oops!: Serialization Error",
+    timeoutErrorMessage = "Oh snap! Request Timeout",
+    cantConnectToServerErrorMessage = "Unable to connect to the server. Please check your internet connection and try again.",
+    unexpectedErrorMessage = "Oops! Unexpected Error",
 )

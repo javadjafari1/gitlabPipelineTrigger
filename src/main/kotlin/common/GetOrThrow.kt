@@ -5,7 +5,6 @@ import io.ktor.client.statement.HttpResponse
 import io.ktor.client.statement.bodyAsText
 import io.ktor.http.isSuccess
 
-
 suspend inline fun <reified T> HttpResponse.getOrThrow(): T {
     if (status.isSuccess()) {
         return body<T>()

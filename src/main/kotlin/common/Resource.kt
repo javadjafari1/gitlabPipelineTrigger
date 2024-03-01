@@ -17,5 +17,5 @@ internal val appResources = Resource(
     visibilityOn = "drawable/ic_visibility_on.xml",
     visibilityOff = "drawable/ic_visibility_off.xml",
     loginIllustration = "drawable/login_illustration.svg",
-    world = "drawable/ic_world.svg"
+    world = "drawable/ic_world.svg",
 )

@@ -14,4 +14,8 @@ val FaString = Strings(
     enterTokenCorrectly = "توکن خود را به درستی وارد کنید.",
     howToCreateToken = "چگونه توکن تولید کنم؟",
     signIn = "ورود",
+    serializationErrorMessage = "عدم همخوانی داده ها",
+    timeoutErrorMessage = "خطا در اتصال به سرور، لطفا بعد از اطمینان از اتصال به اینترنت دوباره تلاش کنید",
+    cantConnectToServerErrorMessage = "خطا در اتصال به سرور",
+    unexpectedErrorMessage = "خطای غیر منتظره!",
 )

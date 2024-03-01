@@ -16,4 +16,8 @@ data class Strings(
     val enterTokenCorrectly: String,
     val howToCreateToken: String,
     val signIn: String,
+    val serializationErrorMessage: String,
+    val timeoutErrorMessage: String,
+    val cantConnectToServerErrorMessage: String,
+    val unexpectedErrorMessage: String,
 )

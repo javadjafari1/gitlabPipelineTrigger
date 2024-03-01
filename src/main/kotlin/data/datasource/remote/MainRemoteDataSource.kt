@@ -5,6 +5,7 @@ import domain.model.BranchResponse
 import domain.model.ProjectResponse
 import domain.model.TriggerResponse
 import domain.model.TriggerTokenResponse
+import domain.model.UserResponse
 
 interface MainRemoteDataSource {
     suspend fun getProjects(
@@ -30,4 +31,9 @@ interface MainRemoteDataSource {
     suspend fun getProjectTriggerTokens(
         projectId: Int
     ): List<TriggerTokenResponse>
+
+    suspend fun getUserDetail(
+        address: String,
+        token: String
+    ): UserResponse
 }

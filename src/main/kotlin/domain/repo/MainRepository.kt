@@ -23,4 +23,8 @@ interface MainRepository {
     fun restoreToken(defaultValue: String): String
     fun saveLocale(locale: String)
     fun restoreLocale(default: String): String
+    suspend fun getUserDetail(
+        address: String,
+        token: String
+    )
 }

@@ -7,6 +7,7 @@ import domain.model.BranchResponse
 import domain.model.ProjectResponse
 import domain.model.TriggerResponse
 import domain.model.TriggerTokenResponse
+import domain.model.UserData
 import domain.repo.MainRepository
 
 class MainRepositoryImpl(
@@ -61,5 +62,28 @@ class MainRepositoryImpl(
 
     override fun restoreLocale(default: String): String {
         return mainLocalDataSource.restoreLocale(default)
+    }
+
+    override suspend fun getUserDetail(
+        address: String,
+        token: String
+    ) {
+        val response = mainRemoteDataSource.getUserDetail(
+            address = address,
+            token = token
+        )
+        mainLocalDataSource.saveUserData(
+            UserData(
+                token = token,
+                username = response.username,
+                id = response.id,
+                name = response.name,
+                avatarUrl = response.avatarUrl,
+                state = response.state,
+                webUrl = response.webUrl,
+                bio = response.bio,
+                jobTitle = response.jobTitle
+            )
+        )
     }
 }

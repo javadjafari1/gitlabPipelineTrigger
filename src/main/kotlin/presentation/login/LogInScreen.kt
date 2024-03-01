@@ -17,15 +17,18 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -43,13 +46,17 @@ import common.LocalResources
 import common.string.LocalStrings
 import presentation.common.AppFilledButton
 import presentation.common.AppTextField
+import presentation.common.GitFastScaffold
 import presentation.common.ObserveEffect
+import presentation.common.Result
 import presentation.selectproject.SelectProjectScreen
 import presentation.login.LogInEffect.NavigateToSelectProject
+import presentation.login.LogInEffect.ShowSnackbar
 import presentation.login.LogInNonUiAction.SigIn
 import presentation.login.LogInUiAction.ToggleTokenVisibility
 import presentation.login.LogInNonUiAction.UpdateAddressTextInput
 import presentation.login.LogInNonUiAction.UpdateTokenTextInput
+import presentation.login.LogInUiAction.OpenCreateTokenUrl
 
 class LogInScreen : Screen {
     @Composable
@@ -57,27 +64,43 @@ class LogInScreen : Screen {
         val screenModel = getScreenModel<LogInScreenModel>()
 
         var isTokenVisible by rememberSaveable { mutableStateOf(false) }
+        val snackbarHostState = remember { SnackbarHostState() }
         val screenState by screenModel.state.collectAsState()
         val navigator = LocalNavigator.currentOrThrow
+        val strings = LocalStrings.current
 
         screenModel.ObserveEffect { effect ->
             when (effect) {
                 NavigateToSelectProject -> {
                     navigator.push(SelectProjectScreen())
                 }
+
+                is ShowSnackbar -> {
+                    snackbarHostState.showSnackbar(
+                        message = effect.message.asString(strings = strings),
+                    )
+                }
             }
 
         }
 
-        screenContent(screenState, isTokenVisible) { action ->
-            if (action is LogInUiAction) {
-                when (action) {
-                    ToggleTokenVisibility -> {
-                        isTokenVisible = !isTokenVisible
+        GitFastScaffold(
+            snackbarHostState = snackbarHostState,
+        ) {
+            screenContent(screenState, isTokenVisible) { action ->
+                if (action is LogInUiAction) {
+                    when (action) {
+                        ToggleTokenVisibility -> {
+                            isTokenVisible = !isTokenVisible
+                        }
+
+                        OpenCreateTokenUrl -> {
+                            // TODO open Url
+                        }
                     }
+                } else if (action is LogInNonUiAction) {
+                    screenModel.sendAction(action)
                 }
-            } else if (action is LogInNonUiAction) {
-                screenModel.sendAction(action)
             }
         }
     }
@@ -262,7 +285,7 @@ class LogInScreen : Screen {
 
             TextButton(
                 onClick = {
-
+                    actioner(OpenCreateTokenUrl)
                 }
             ) {
                 Text(
@@ -278,10 +301,18 @@ class LogInScreen : Screen {
                 modifier = Modifier.fillMaxWidth(),
                 onClick = { actioner(SigIn) }
             ) {
-                Text(
-                    text = strings.signIn,
-                    style = MaterialTheme.typography.bodyLarge
-                )
+                AnimatedContent(
+                    targetState = screenState.loginResult is Result.Loading
+                ) { isLoading ->
+                    if (isLoading) {
+                        CircularProgressIndicator(color = MaterialTheme.colorScheme.onPrimary)
+                    } else {
+                        Text(
+                            text = strings.signIn,
+                            style = MaterialTheme.typography.bodyLarge
+                        )
+                    }
+                }
             }
         }
     }

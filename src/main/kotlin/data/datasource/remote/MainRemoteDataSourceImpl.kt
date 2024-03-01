@@ -6,6 +6,7 @@ import domain.model.BranchResponse
 import domain.model.ProjectResponse
 import domain.model.TriggerResponse
 import domain.model.TriggerTokenResponse
+import domain.model.UserResponse
 
 class MainRemoteDataSourceImpl(
     private val gitlabApi: GitlabApi
@@ -55,6 +56,16 @@ class MainRemoteDataSourceImpl(
     ): List<TriggerTokenResponse> {
         return gitlabApi.getProjectTriggerTokens(
             projectId = projectId
+        )
+    }
+
+    override suspend fun getUserDetail(
+        address: String,
+        token: String
+    ): UserResponse {
+        return gitlabApi.getUserDetail(
+            address = address,
+            token = token
         )
     }
 }
